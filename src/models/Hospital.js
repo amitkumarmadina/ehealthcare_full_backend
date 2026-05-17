@@ -1,0 +1,27 @@
+
+import mongoose from "mongoose"
+
+const hospitalSchema = new mongoose.Schema(
+  {
+    name:      { type: String, required: true },
+    city:      { type: String, required: true },
+    address:   { type: String },
+    phone:     { type: String },
+    ambulance: { type: String },
+    lat:       { type: Number },
+    lng:       { type: Number },
+    type:      { type: String, enum: ["Government", "Private"], default: "Government" },
+    emergency: { type: Boolean, default: true },
+    departments: [{ type: String }],
+    image:     { type: String, default: "" },
+    images:    [{ type: String }],
+    rating:    { type: Number, default: 4.5 },
+    popularity: { type: Number, default: 0 },
+  },
+  { timestamps: true }
+)
+
+hospitalSchema.index({ city: 1 })
+hospitalSchema.index({ name: 1 })
+
+export default mongoose.model("Hospital", hospitalSchema)
